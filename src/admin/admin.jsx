@@ -5,12 +5,14 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { IoMagnetSharp } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 import "./admin.css";
 import axios from "axios";
 
 const Admin = () => {
   const [usersData, setUsersData] = useState([]);
   const [filters, setFilters] = useState("pending");
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users`);
@@ -25,6 +27,13 @@ const Admin = () => {
     await axios.patch(`${process.env.REACT_APP_API_URL}/auth/reject/${id}`);
     fetchUsers();
   };
+  const handleLogout = () => {
+    localStorage.clear();
+    alert("logout successfull");
+    window.dispatchEvent(new Event("storage"));
+    navigate("/login");
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -61,7 +70,7 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <Link to="/profile">
+            <Link to="/profile" style={{ textDecoration: "none" }}>
               <FaUserCircle size={35} />
               <h4>Profile</h4>
             </Link>
@@ -77,7 +86,7 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <Link to="/editors">
+            <Link to="/editors" style={{ textDecoration: "none" }}>
               <FaUserEdit size={35} />
               <h4>Editors</h4>
             </Link>
@@ -94,7 +103,7 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <Link to="/leads">
+            <Link to="/leads" style={{ textDecoration: "none" }}>
               <IoMagnetSharp size={35} />
               <h4>Leads</h4>
             </Link>
@@ -112,7 +121,7 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <Link to="/projects" style={linkStyle}>
+            <Link to="/projects" style={{ textDecoration: "none" }}>
               <IoMagnetSharp size={35} />
               <h4>Projects</h4>
             </Link>
@@ -133,7 +142,10 @@ const Admin = () => {
           }}
         >
           <TbLogout size={30} />
-          <button style={{ backgroundColor: "transparent", fontSize: "20px" }}>
+          <button
+            onClick={handleLogout}
+            style={{ backgroundColor: "transparent", fontSize: "20px" }}
+          >
             Logout
           </button>
         </div>
