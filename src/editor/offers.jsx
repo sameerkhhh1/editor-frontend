@@ -16,7 +16,7 @@ const Offers = () => {
   // ✅ Saare projects fetch karo
   const fetchProjects = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:8080/projects/offers");
+      const res = await axios.get(`${import.meta.env.API_URL}/projects/offers`);
       setProjects(res.data);
     } catch (err) {
       console.log(err);
@@ -30,7 +30,7 @@ const Offers = () => {
   // ✅ Listed budget pe seedha accept
   const acceptProject = async (projectId, budget) => {
     try {
-      await axios.post("http://localhost:8080/projects/reOffers", {
+      await axios.post(`${import.meta.env.API_URL}/projects/reOffers`, {
         projectId,
         editorId: myId,
         offerPrice: budget,
@@ -54,7 +54,7 @@ const Offers = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/projects/reOffers", {
+      await axios.post(`${import.meta.env.API_URL}/projects/reOffers`, {
         projectId,
         editorId: myId,
         offerPrice: myPrice,

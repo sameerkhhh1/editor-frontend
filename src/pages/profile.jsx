@@ -12,7 +12,7 @@ const Profile = () => {
     if (userId) {
       import("axios").then(({ default: axios }) => {
         axios
-          .get(`http://localhost:8080/auth/profile/${userId}`)
+          .get(`${import.meta.env.API_URL}/auth/profile/${userId}`)
           .then((res) => setUserData(res.data))
           .catch((err) => console.log(err));
       });

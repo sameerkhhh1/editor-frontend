@@ -24,7 +24,7 @@ const Home = () => {
       if (!userId) return;
       try {
         const res = await axios.get(
-          `http://localhost:8080/projects/stats/${userId}`,
+          `${import.meta.env.API_URL}/projects/stats/${userId}`,
         );
         setStats(res.data);
       } catch (err) {
@@ -40,7 +40,7 @@ const Home = () => {
       if (!userId) return;
       try {
         const res = await axios.get(
-          `http://localhost:8080/auth/profile/${userId}`,
+          `${import.meta.env.API_URL}/auth/profile/${userId}`,
         );
         setStatus(res.data.status);
         setRole(res.data.role);

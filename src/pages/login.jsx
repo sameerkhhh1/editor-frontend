@@ -23,10 +23,13 @@ const Login = () => {
     try {
       setLoading(true);
       await loginSchema.validate({ email, password }, { abortEarly: false });
-      const responce = await axios.post("http://localhost:8080/auth/login", {
-        email,
-        password,
-      });
+      const responce = await axios.post(
+        `${import.meta.env.API_URL}/auth/login`,
+        {
+          email,
+          password,
+        },
+      );
       if (responce.status === 200) {
         alert("Login Successfull");
         localStorage.setItem("token", responce.data.jwtToken);

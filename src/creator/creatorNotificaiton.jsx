@@ -8,7 +8,7 @@ const CreatorNotifications = () => {
   const fetchNotifications = useCallback(async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/notifications/${userId}`,
+        `${import.meta.env.API_URL}/notifications/${userId}`,
       );
       setData(res.data);
     } catch (err) {
@@ -23,7 +23,7 @@ const CreatorNotifications = () => {
   // ✅ UI se bhi hata do, DB se bhi
   const removeNotification = async (notifId) => {
     try {
-      await axios.delete(`http://localhost:8080/notifications/${notifId}`);
+      await axios.delete(`${import.meta.env.API_URL}/notifications/${notifId}`);
       setData((prev) => prev.filter((n) => n._id !== notifId));
     } catch (err) {
       console.log(err);
@@ -32,7 +32,7 @@ const CreatorNotifications = () => {
 
   const acceptOffer = async (projectId, offerId, notifId) => {
     try {
-      await axios.post("http://localhost:8080/projects/acceptOffer", {
+      await axios.post(`${import.meta.env.API_URL}/projects/acceptOffer`, {
         projectId,
         offerId,
       });
@@ -46,7 +46,7 @@ const CreatorNotifications = () => {
 
   const rejectOffer = async (projectId, offerId, notifId) => {
     try {
-      await axios.post("http://localhost:8080/projects/rejectOffer", {
+      await axios.post(`${import.meta.env.API_URL}/projects/rejectOffer`, {
         projectId,
         offerId,
       });

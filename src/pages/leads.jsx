@@ -12,7 +12,7 @@ export const Leads = () => {
   const fetchLeads = useCallback(async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/projects/myLeads/${editorId}`,
+        `${import.meta.env.API_URL}/projects/myLeads/${editorId}`,
       );
       setProjects(res.data);
     } catch (err) {
@@ -26,7 +26,7 @@ export const Leads = () => {
 
   const markComplete = async (projectId) => {
     try {
-      await axios.post("http://localhost:8080/projects/completeProject", {
+      await axios.post(`${import.meta.env.API_URL}/projects/completeProject`, {
         projectId,
       });
       alert("Project marked as completed! Creator has been notified.");

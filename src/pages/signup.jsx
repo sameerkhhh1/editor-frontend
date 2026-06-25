@@ -38,13 +38,16 @@ export const Signup = () => {
         { fullName, email, password, confirmPassword, role },
         { abortEarly: false },
       );
-      const responce = await axios.post("http://localhost:8080/auth/signup", {
-        email,
-        password,
-        confirmPassword,
-        fullName,
-        role,
-      });
+      const responce = await axios.post(
+        `${import.meta.env.API_URL}/auth/signup`,
+        {
+          email,
+          password,
+          confirmPassword,
+          fullName,
+          role,
+        },
+      );
       if (responce.status === 200) {
         alert("SignUp Successfull");
         localStorage.setItem("token", responce.data.jwtToken);
