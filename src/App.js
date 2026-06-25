@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { Signup } from "./pages/signup";
 import Login from "./pages/login";
@@ -27,21 +27,33 @@ const PrivateRoute = ({ element, allowedRoles }) => {
   return element;
 };
 
+// ✅ Login ke baad hi accessible
+const AuthRoute = ({ element }) => {
+  const token = localStorage.getItem("token");
+  if (!token) return <Navigate to="/login" replace />;
+  return element;
+};
+
 function App() {
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  // ✅ Navbar sirf login ke baad dikhao
+  const hideNavbar =
+    !token || location.pathname === "/login" || location.pathname === "/signup";
+
   return (
     <div style={{ backgroundColor: "#0D131D" }}>
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <Routes>
         {/* Public */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Always accessible */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-
-        {/* ✅ Editors — login ki zaroorat nahi, seedha accessible */}
-        <Route path="/editors" element={<Editors />} />
+        {/* ✅ Login zaroori */}
+        <Route path="/home" element={<AuthRoute element={<Home />} />} />
+        <Route path="/profile" element={<AuthRoute element={<Profile />} />} />
+        <Route path="/editors" element={<AuthRoute element={<Editors />} />} />
 
         {/* Admin only */}
         <Route
@@ -51,7 +63,7 @@ function App() {
           }
         />
 
-        {/* Creator only — must be accepted */}
+        {/* Creator only */}
         <Route
           path="/projects"
           element={
@@ -68,7 +80,7 @@ function App() {
           }
         />
 
-        {/* Editor only — must be accepted */}
+        {/* Editor only */}
         <Route
           path="/leads"
           element={

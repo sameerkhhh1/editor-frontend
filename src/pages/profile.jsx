@@ -357,7 +357,7 @@ const Profile = () => {
                     </button>
                   </>
                 ) : (
-                  <div>
+                  <div style={{ backgroundColor: "transparent" }}>
                     <p
                       style={{
                         color: "#8b9199",
