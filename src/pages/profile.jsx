@@ -366,7 +366,10 @@ const Profile = () => {
                     >
                       You are not logged in.
                     </p>
-                    <Link to="/login" style={{ color: "#8b5cf6" }}>
+                    <Link
+                      to="/login"
+                      style={{ color: "#8b5cf6", textDecoration: "none" }}
+                    >
                       Go to Login
                     </Link>
                   </div>
