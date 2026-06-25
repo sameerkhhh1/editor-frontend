@@ -61,8 +61,10 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <FaUserCircle size={35} />
-            <h4>Profile</h4>
+            <Link to="/profile">
+              <FaUserCircle size={35} />
+              <h4>Profile</h4>
+            </Link>
           </div>
           <div
             style={{
@@ -75,9 +77,10 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <FaUserEdit size={35} />
-            <h4>Editors</h4>
-            <IoIosLock size={30} />
+            <Link to="/editors">
+              <FaUserEdit size={35} />
+              <h4>Editors</h4>
+            </Link>
           </div>
           <div
             style={{
@@ -91,9 +94,28 @@ const Admin = () => {
               alignItems: "center",
             }}
           >
-            <IoMagnetSharp size={35} />
-            <h4>Leads</h4>
-            <IoIosLock size={30} />
+            <Link to="/leads">
+              <IoMagnetSharp size={35} />
+              <h4>Leads</h4>
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              // border: "1px solid #6a727b",
+              // boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
+              paddingLeft: "20px",
+              gap: "15px",
+              // padding: "5px",
+              fontSize: "22px",
+              alignItems: "center",
+            }}
+          >
+            <Link to="/projects" style={linkStyle}>
+              <IoMagnetSharp size={35} />
+              <h4>Projects</h4>
+            </Link>
           </div>
         </div>
         <div
