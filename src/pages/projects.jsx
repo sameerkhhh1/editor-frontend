@@ -67,7 +67,7 @@ const Projects = () => {
     }
 
     try {
-      await axios.post(`${import.meta.env.API_URL}/projects/create`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/projects/create`, {
         creatorId: userId,
         title,
         description,

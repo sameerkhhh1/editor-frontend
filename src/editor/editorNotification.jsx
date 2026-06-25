@@ -9,7 +9,7 @@ const EditorNotifications = () => {
   const fetchNotifications = useCallback(async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.API_URL}/notifications/${userId}`,
+        `${process.env.REACT_APP_API_URL}/notifications/${userId}`,
       );
       setData(res.data);
     } catch (err) {

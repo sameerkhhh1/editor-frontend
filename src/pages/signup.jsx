@@ -39,7 +39,7 @@ export const Signup = () => {
         { abortEarly: false },
       );
       const responce = await axios.post(
-        `${import.meta.env.API_URL}/auth/signup`,
+        `${process.env.REACT_APP_API_URL}/auth/signup`,
         {
           email,
           password,

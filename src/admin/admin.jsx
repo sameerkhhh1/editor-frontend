@@ -13,16 +13,16 @@ const Admin = () => {
   const [filters, setFilters] = useState("pending");
 
   const fetchUsers = async () => {
-    const res = await axios.get(`${import.meta.env.API_URL}/auth/users`);
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users`);
     setUsersData(res.data);
   };
 
   const handleAccept = async (id) => {
-    await axios.patch(`${import.meta.env.API_URL}/auth/accept/${id}`);
+    await axios.patch(`${process.env.REACT_APP_API_URL}/auth/accept/${id}`);
     fetchUsers();
   };
   const handleReject = async (id) => {
-    await axios.patch(`${import.meta.env.API_URL}/auth/reject/${id}`);
+    await axios.patch(`${process.env.REACT_APP_API_URL}/auth/reject/${id}`);
     fetchUsers();
   };
   useEffect(() => {

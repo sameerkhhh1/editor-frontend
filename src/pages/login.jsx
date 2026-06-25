@@ -24,7 +24,7 @@ const Login = () => {
       setLoading(true);
       await loginSchema.validate({ email, password }, { abortEarly: false });
       const responce = await axios.post(
-        `${import.meta.env.API_URL}/auth/login`,
+        `${process.env.REACT_APP_API_URL}/auth/login`,
         {
           email,
           password,
