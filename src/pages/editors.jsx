@@ -1,485 +1,194 @@
-import React from "react";
-import { SiMicroeditor } from "react-icons/si";
-// import { IoIosLock } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
-import { TbLogout } from "react-icons/tb";
-import { IoMagnetSharp } from "react-icons/io5";
+import React, { useState } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { SiMicroeditor } from "react-icons/si";
+// import { FaUserCircle } from "react-icons/fa";
+// import { FaUserEdit } from "react-icons/fa";
+// import { TbLogout } from "react-icons/tb";
+// import { IoMagnetSharp } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import "./editors.css";
 import { CgProfile } from "react-icons/cg";
+import "./editors.css";
+import Sidebar from "./sidebar";
+
+const editorsData = [
+  {
+    id: 1,
+    name: "Kavya Reddy",
+    rating: "4.9",
+    niche: "Gaming",
+    price: "₹750",
+    img: "https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?w=400",
+  },
+  {
+    id: 2,
+    name: "Divya Nair",
+    rating: "4.8",
+    niche: "Commercial",
+    price: "₹1200",
+    img: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?w=400",
+  },
+  {
+    id: 3,
+    name: "Isha Verma",
+    rating: "4.9",
+    niche: "Podcast",
+    price: "₹800",
+    img: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?w=400",
+  },
+  {
+    id: 4,
+    name: "Arjun Mehta",
+    rating: "4.7",
+    niche: "Shorts",
+    price: "₹600",
+    img: "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?w=400",
+  },
+  {
+    id: 5,
+    name: "Priya Singh",
+    rating: "4.8",
+    niche: "Travel",
+    price: "₹950",
+    img: "https://images.pexels.com/photos/1051747/pexels-photo-1051747.jpeg?w=400",
+  },
+  {
+    id: 6,
+    name: "Rahul Das",
+    rating: "4.6",
+    niche: "Music",
+    price: "₹1100",
+    img: "https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?w=400",
+  },
+  {
+    id: 7,
+    name: "Sneha Joshi",
+    rating: "5.0",
+    niche: "Documentary",
+    price: "₹1500",
+    img: "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?w=400",
+  },
+  {
+    id: 8,
+    name: "Karan Patel",
+    rating: "4.7",
+    niche: "Fitness",
+    price: "₹700",
+    img: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?w=400",
+  },
+  {
+    id: 9,
+    name: "Meera Iyer",
+    rating: "4.9",
+    niche: "Meme",
+    price: "₹500",
+    img: "https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?w=400",
+  },
+];
+
+const categories = [
+  "All",
+  "Shorts",
+  "Gaming",
+  "Podcast",
+  "Travel",
+  "Meme",
+  "Commercial",
+  "Music",
+  "Documentary",
+  "Fitness",
+];
 
 const Editors = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [search, setSearch] = useState("");
+  // const location = useLocation();
+  // const navigate = useNavigate();
+
+  // const isActive = (path) => location.pathname === path;
+
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   window.dispatchEvent(new Event("storage"));
+  //   navigate("/login");
+  // };
+
+  const filtered = editorsData.filter((e) => {
+    const matchFilter = activeFilter === "All" || e.niche === activeFilter;
+    const matchSearch =
+      e.name.toLowerCase().includes(search.toLowerCase()) ||
+      e.niche.toLowerCase().includes(search.toLowerCase());
+    return matchFilter && matchSearch;
+  });
+
   return (
-    <div className="con">
-      <div
-        className="left-con"
-        style={{ backgroundColor: "#0d131d", borderRight: "1px solid #656d77" }}
-      >
-        <div className="left-child">
-          <div
-            style={{
-              display: "flex",
-              // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              paddingLeft: "20px",
-              gap: "15px",
-              // padding: "5px",
-              fontSize: "22px",
-              alignItems: "center",
-            }}
-          >
-            <SiMicroeditor size={25} color="white" />
-            <h4>Rent A Editor</h4>
-          </div>
+    <div className="editors-con">
+      {/* Sidebar */}
+      <Sidebar />
 
-          <div
-            style={{
-              display: "flex",
-              // boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              paddingLeft: "20px",
-              gap: "15px",
-              // padding: "5px",
-              fontSize: "22px",
-              alignItems: "center",
-            }}
-          >
-            <FaUserCircle size={35} />
-            <h4>Profile</h4>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              // boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              gap: "15px",
-              // padding: "5px",
-              paddingLeft: "20px",
-              fontSize: "22px",
-              alignItems: "center",
-            }}
-          >
-            <FaUserEdit size={35} />
-            <h4>Editors</h4>
-            {/* <IoIosLock size={30} /> */}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              // border: "1px solid #6a727b",
-              // boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              paddingLeft: "20px",
-              gap: "15px",
-              // padding: "5px",
-              fontSize: "22px",
-              alignItems: "center",
-            }}
-          >
-            <IoMagnetSharp size={35} />
-            <h4>Leads</h4>
-            {/* <IoIosLock size={30} /> */}
-          </div>
-        </div>
-        <div
-          style={{
-            // border: "1px solid black",
-            display: "flex",
-            width: "200px",
-
-            height: "60px",
-            gap: "20px",
-            marginLeft: "20px",
-            // justifyContent: "space-around",
-
-            // boxShadow: "   rgba(0, 0, 0, 0.24) 0px 3px 8px",
-          }}
-        >
-          <TbLogout size={30} />
-          <button style={{ backgroundColor: "transparent", fontSize: "20px" }}>
-            Logout
-          </button>
-        </div>
-      </div>
-      <div className="upper-con">
-        <h1>Browse Editors</h1>
-        <p>
-          Filter by niche,budget,ratings and delivery speed. Hire verified
-          editors for your project
+      {/* Main Content */}
+      <div className="editors-main">
+        <span className="editors-title">Browse Editors</span>
+        <p className="editors-sub">
+          Filter by niche, budget, ratings and delivery speed. Hire verified
+          editors for your project.
         </p>
-        <div
-          style={{
-            display: "flex",
-            border: "1px solid #3b3447",
-            alignItems: "center",
-            marginBottom: "15px",
-            borderRadius: "10px",
-            width: "1200px",
-          }}
-        >
-          <CiSearch size={25} style={{ marginLeft: "15px" }} />
+
+        {/* Search */}
+        <div className="editors-search-wrap">
+          <CiSearch size={22} color="#8a95a3" />
           <input
-            placeholder="Search editors.."
-            style={{
-              width: "1090px",
-              border: "none",
-              fontSize: "18px",
-              outline: "none",
-            }}
-          ></input>
-        </div>
-        <div
-          style={{
-            //  border: "1px solid gold",
-            width: "1250px",
-          }}
-        >
-          <button>All</button>
-          <button>Shorts</button>
-          <button>Gaming</button>
-          <button>Podcast</button>
-          <button>Travel</button>
-          <button>Meme</button>
-          <button>Commercial</button>
-          <button>Music</button>
-          <button style={{ width: "120px" }}>Documentary</button>
-          <button>Fitness</button>
+            className="editors-search-input"
+            placeholder="Search editors..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
-        <div
-          style={{
-            // border: "1px solid red",
-            height: "500px",
-            width: "1210px",
-            display: "grid",
-            padding: "25px",
-            margin: "25px",
-
-            gridTemplateColumns: "repeat(3,1fr)",
-          }}
-        >
-          <div
-            style={{
-              //  border: "1px solid blue",
-              height: "440px",
-            }}
-          >
-            <div
-              style={{
-                height: "390px",
-                width: "390px",
-                marginRight: "20px",
-                borderRadius: "20px",
-
-                border: "1px solid #5A616A",
-
-                // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              }}
+        {/* Filter Pills */}
+        <div className="editors-filters">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className={`filter-btn ${activeFilter === cat ? "filter-btn-active" : ""}`}
             >
-              <div
-                style={{
-                  display: "flex",
-                  // border: "1px solid green",
-                  alignItems: "center",
-                  height: "100px",
-                  width: "350px",
-                  marginLeft: "15px",
-                }}
-              >
-                <CgProfile size={45} />
-                <div
-                  style={{
-                    display: "flex",
-                    // border: "1px solid yellow",
-                    flexDirection: "column",
-                    marginLeft: "20px",
-                  }}
-                >
-                  <h3 style={{ margin: "0px" }}>Kavya Reddy</h3>
-                  <p style={{ margin: "0px" }}>⭐ 4.9 . Gaming </p>
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Cards Grid */}
+        <div className="editors-grid">
+          {filtered.map((editor) => (
+            <div key={editor.id} className="editor-card">
+              <img
+                src={editor.img}
+                alt={editor.niche}
+                className="editor-card-img"
+              />
+              <div className="editor-card-body">
+                <div className="editor-card-header">
+                  <CgProfile size={38} color="#8a95a3" />
+                  <div>
+                    <p className="editor-name">{editor.name}</p>
+                    <p className="editor-meta">
+                      ⭐ {editor.rating} · {editor.niche}
+                    </p>
+                  </div>
+                </div>
+                <div className="editor-card-footer">
+                  <div>
+                    <p className="editor-starting">Starting at</p>
+                    <p className="editor-price">{editor.price}</p>
+                  </div>
+                  <div className="editor-card-btns">
+                    <button className="btn-secondary">Profile</button>
+                    <button className="btn-primary">Hire</button>
+                  </div>
                 </div>
               </div>
-
-              <img
-                src="https://tse1.mm.bing.net/th/id/OIP.jarFwnq8wAOMNzXVyI5YQwHaD4?pid=Api&P=0&h=180"
-                style={{
-                  objectFit: "cover",
-                  height: "200px",
-                  width: "358px",
-                  paddingLeft: "15px",
-                }}
-                alt="gaming"
-              ></img>
-              <p style={{ margin: "0px", paddingLeft: "15px" }}>Starting at</p>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  // paddingLeft: "15px",
-                }}
-              >
-                <h4
-                  style={{
-                    margin: "0px",
-                    marginTop: "6px",
-                    paddingLeft: "15px",
-                  }}
-                >
-                  ₹750
-                </h4>
-                <button
-                  style={{
-                    border: "1px solid #392559",
-                    backgroundColor: "#392559",
-                    color: "white",
-                    width: "80px",
-                    marginRight: "15px",
-                  }}
-                >
-                  Hire
-                </button>
-              </div>
             </div>
-
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-                marginTop: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              View Profile
-            </button>
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-              }}
-            >
-              Hire
-            </button>
-          </div>
-          <div
-            style={{
-              //  border: "1px solid blue",
-              height: "440px",
-            }}
-          >
-            <div
-              style={{
-                height: "390px",
-                width: "390px",
-                marginRight: "20px",
-                borderRadius: "20px",
-
-                border: "1px solid #5A616A",
-                // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  // border: "1px solid green",
-                  alignItems: "center",
-                  height: "100px",
-                  width: "350px",
-                  marginLeft: "15px",
-                }}
-              >
-                <CgProfile size={45} />
-                <div
-                  style={{
-                    display: "flex",
-                    // border: "1px solid yellow",
-                    flexDirection: "column",
-                    marginLeft: "20px",
-                  }}
-                >
-                  <h3 style={{ margin: "0px" }}>Divya Nair</h3>
-                  <p style={{ margin: "0px" }}>⭐ 4.9 . Commercial </p>
-                </div>
-              </div>
-
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.g4xllmwNnQoj4JNbBBuYbgHaEK?pid=Api&P=0&h=180"
-                style={{
-                  height: "200px",
-                  width: "358px",
-                  paddingLeft: "15px",
-                  objectFit: "cover",
-                }}
-                alt="commercial"
-              ></img>
-              <p style={{ margin: "0px", paddingLeft: "15px" }}>Starting at</p>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  // paddingLeft: "15px",
-                }}
-              >
-                <h4
-                  style={{
-                    margin: "0px",
-                    marginTop: "6px",
-                    paddingLeft: "15px",
-                  }}
-                >
-                  ₹1200
-                </h4>
-                <button
-                  style={{
-                    border: "1px solid #392559",
-                    backgroundColor: "#392559",
-                    color: "white",
-                    width: "80px",
-                    marginRight: "15px",
-                  }}
-                >
-                  Hire
-                </button>
-              </div>
-            </div>
-
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-                marginTop: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              View Profile
-            </button>
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-              }}
-            >
-              Hire
-            </button>
-          </div>
-          <div
-            style={{
-              //  border: "1px solid blue",
-              height: "440px",
-            }}
-          >
-            <div
-              style={{
-                height: "390px",
-                width: "390px",
-                marginRight: "20px",
-                borderRadius: "20px",
-
-                border: "1px solid #5A616A",
-                // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  // border: "1px solid green",
-                  alignItems: "center",
-                  height: "100px",
-                  width: "350px",
-                  marginLeft: "15px",
-                }}
-              >
-                <CgProfile size={45} />
-                <div
-                  style={{
-                    display: "flex",
-                    // border: "1px solid yellow",
-                    flexDirection: "column",
-                    marginLeft: "20px",
-                  }}
-                >
-                  <h3 style={{ margin: "0px" }}>Isha Verma</h3>
-                  <p style={{ margin: "0px" }}>⭐ 4.9 . Podcast </p>
-                </div>
-              </div>
-
-              <img
-                src="https://tse4.mm.bing.net/th/id/OIP.5lYd8ugJ33dXlXhYIdsznQHaEK?pid=Api&P=0&h=180"
-                style={{
-                  height: "200px",
-                  width: "358px",
-                  paddingLeft: "15px",
-                  objectFit: "cover",
-                }}
-                alt="podcast"
-              ></img>
-              <p style={{ margin: "0px", paddingLeft: "15px" }}>Starting at</p>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  // paddingLeft: "15px",
-                }}
-              >
-                <h4
-                  style={{
-                    margin: "0px",
-                    marginTop: "6px",
-                    paddingLeft: "15px",
-                  }}
-                >
-                  ₹800
-                </h4>
-                <button
-                  style={{
-                    border: "1px solid #392559",
-                    backgroundColor: "#392559",
-                    color: "white",
-                    width: "80px",
-                    marginRight: "15px",
-                  }}
-                >
-                  Hire
-                </button>
-              </div>
-            </div>
-
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-                marginTop: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              View Profile
-            </button>
-            <button
-              style={{
-                border: "1px solid #392559",
-                backgroundColor: "#392559",
-                color: "white",
-                width: "180px",
-                marginRight: "15px",
-              }}
-            >
-              Hire
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </div>

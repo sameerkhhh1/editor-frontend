@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import "./home.css";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdPeopleAlt } from "react-icons/md";
 import { AiFillMessage } from "react-icons/ai";
-import { SiMicroeditor } from "react-icons/si";
+// import { SiMicroeditor } from "react-icons/si";
 import { IoIosLock } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
-import { TbLogout } from "react-icons/tb";
-import { IoMagnetSharp } from "react-icons/io5";
+// import { FaUserCircle } from "react-icons/fa";
+// import { FaUserEdit } from "react-icons/fa";
+// import { TbLogout } from "react-icons/tb";
+// import { IoMagnetSharp } from "react-icons/io5";
+// import { MdOutlineNotifications } from "react-icons/md";
+// import { MdOutlineHome } from "react-icons/md";
 import axios from "axios";
+import Sidebar from "./sidebar";
 
 const Home = () => {
   const [status, setStatus] = useState("");
   const [role, setRole] = useState("");
   const [stats, setStats] = useState({});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -51,190 +56,169 @@ const Home = () => {
     fetchHomeUser();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    alert("logout successfull");
-    window.dispatchEvent(new Event("storage"));
-    navigate("/login");
-  };
-
-  const linkStyle = {
-    textDecoration: "none",
-    color: "inherit",
-    display: "flex",
-    gap: "15px",
-    paddingLeft: "20px",
-    fontSize: "22px",
-    alignItems: "center",
-  };
-
-  const lockedItemStyle = {
-    display: "flex",
-    gap: "15px",
-    paddingLeft: "20px",
-    fontSize: "22px",
-    alignItems: "center",
-    opacity: 0.4,
-    cursor: "not-allowed",
-  };
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   alert("logout successfull");
+  //   window.dispatchEvent(new Event("storage"));
+  //   navigate("/login");
+  // };
 
   const isAccepted = status === "accepted";
+  // const isActive = (path) => location.pathname === path;
 
-  // ✅ Sidebar — accepted/locked dono mein same structure
-  const renderSidebar = () => (
-    <div
-      className="left-con"
-      style={{ backgroundColor: "#0d131d", borderRight: "1px solid #656d77" }}
-    >
-      <div className="left-child">
-        <div style={linkStyle}>
-          <SiMicroeditor size={25} color="white" />
-          <h4>Rent A Editor</h4>
-        </div>
+  // const renderSidebar = () => (
+  //   <div className="left-con">
+  //     <div className="left-child">
+  //       {/* Brand */}
+  //       <div className="sidebar-brand">
+  //         <div className="brand-logo">
+  //           <SiMicroeditor size={18} color="white" />
+  //         </div>
+  //         <div className="brand-text">
+  //           <span className="brand-name">RentAEditor</span>
+  //           <span className="brand-tagline">Find your editor</span>
+  //         </div>
+  //       </div>
 
-        {/* Profile — sabko always */}
-        <Link to="/profile" style={linkStyle}>
-          <FaUserCircle size={35} />
-          <h4>Profile</h4>
-        </Link>
+  //       <Link
+  //         to="/home"
+  //         className={`sidebar-link ${isActive("/home") ? "sidebar-link-active" : ""}`}
+  //       >
+  //         {/* <FaUserCircle size={20} /> */}
+  //         <MdOutlineHome style={{ backgroundColor: "transparent" }} size={20} />
+  //         <span style={{ backgroundColor: "transparent" }}>Home</span>
+  //       </Link>
 
-        {/* ✅ Editors — sabko, no lock */}
-        <Link to="/editors" style={linkStyle}>
-          <FaUserEdit size={35} />
-          <h4>Editors</h4>
-        </Link>
+  //       {/* Profile */}
+  //       <Link
+  //         to="/profile"
+  //         className={`sidebar-link ${isActive("/profile") ? "sidebar-link-active" : ""}`}
+  //       >
+  //         <FaUserCircle size={20} />
+  //         <span>Profile</span>
+  //       </Link>
 
-        {/* ✅ CREATOR accepted */}
-        {role === "creator" && isAccepted && (
-          <>
-            <Link to="/projects" style={linkStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Projects</h4>
-            </Link>
-            <Link to="/creatorNotification" style={linkStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Notifications</h4>
-            </Link>
-          </>
-        )}
+  //       {/* Editors */}
+  //       <Link
+  //         to="/editors"
+  //         className={`sidebar-link ${isActive("/editors") ? "sidebar-link-active" : ""}`}
+  //       >
+  //         <FaUserEdit size={20} />
+  //         <span>Editors</span>
+  //       </Link>
 
-        {/* ✅ CREATOR locked */}
-        {role === "creator" && !isAccepted && (
-          <>
-            <div style={lockedItemStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Projects</h4>
-              <IoIosLock size={20} />
-            </div>
-            <div style={lockedItemStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Notifications</h4>
-              <IoIosLock size={20} />
-            </div>
-          </>
-        )}
+  //       {/* CREATOR accepted */}
+  //       {role === "creator" && isAccepted && (
+  //         <>
+  //           <Link
+  //             to="/projects"
+  //             className={`sidebar-link ${isActive("/projects") ? "sidebar-link-active" : ""}`}
+  //           >
+  //             <IoMagnetSharp size={20} />
+  //             <span>Projects</span>
+  //           </Link>
+  //           <Link
+  //             to="/creatorNotification"
+  //             className={`sidebar-link ${isActive("/creatorNotification") ? "sidebar-link-active" : ""}`}
+  //           >
+  //             <MdOutlineNotifications size={20} />
+  //             <span>Notifications</span>
+  //           </Link>
+  //         </>
+  //       )}
 
-        {/* ✅ EDITOR accepted */}
-        {role === "editor" && isAccepted && (
-          <>
-            <Link to="/leads" style={linkStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Leads</h4>
-            </Link>
-            <Link to="/offers" style={linkStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Offers</h4>
-            </Link>
-            <Link to="/editorNotification" style={linkStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Notifications</h4>
-            </Link>
-          </>
-        )}
+  //       {/* CREATOR locked */}
+  //       {role === "creator" && !isAccepted && (
+  //         <>
+  //           <div className="sidebar-locked">
+  //             <IoMagnetSharp size={20} />
+  //             <span>Projects</span>
+  //             <IoIosLock size={15} />
+  //           </div>
+  //           <div className="sidebar-locked">
+  //             <MdOutlineNotifications size={20} />
+  //             <span>Notifications</span>
+  //             <IoIosLock size={15} />
+  //           </div>
+  //         </>
+  //       )}
 
-        {/* ✅ EDITOR locked */}
-        {role === "editor" && !isAccepted && (
-          <>
-            <div style={lockedItemStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Leads</h4>
-              <IoIosLock size={20} />
-            </div>
-            <div style={lockedItemStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Offers</h4>
-              <IoIosLock size={20} />
-            </div>
-            <div style={lockedItemStyle}>
-              <IoMagnetSharp size={35} />
-              <h4>Notifications</h4>
-              <IoIosLock size={20} />
-            </div>
-          </>
-        )}
-      </div>
+  //       {/* EDITOR accepted */}
+  //       {role === "editor" && isAccepted && (
+  //         <>
+  //           <Link
+  //             to="/leads"
+  //             className={`sidebar-link ${isActive("/leads") ? "sidebar-link-active" : ""}`}
+  //           >
+  //             <IoMagnetSharp size={20} />
+  //             <span>Leads</span>
+  //           </Link>
+  //           <Link
+  //             to="/offers"
+  //             className={`sidebar-link ${isActive("/offers") ? "sidebar-link-active" : ""}`}
+  //           >
+  //             <IoMagnetSharp size={20} />
+  //             <span>Offers</span>
+  //           </Link>
+  //           <Link
+  //             to="/editorNotification"
+  //             className={`sidebar-link ${isActive("/editorNotification") ? "sidebar-link-active" : ""}`}
+  //           >
+  //             <MdOutlineNotifications size={20} />
+  //             <span>Notifications</span>
+  //           </Link>
+  //         </>
+  //       )}
 
-      <div
-        style={{
-          display: "flex",
-          width: "200px",
-          height: "60px",
-          gap: "20px",
-          marginLeft: "20px",
-          cursor: "pointer",
-        }}
-        onClick={handleLogout}
-      >
-        <TbLogout size={30} />
-        <button style={{ backgroundColor: "transparent", fontSize: "20px" }}>
-          Logout
-        </button>
-      </div>
-    </div>
-  );
+  //       {/* EDITOR locked */}
+  //       {role === "editor" && !isAccepted && (
+  //         <>
+  //           <div className="sidebar-locked">
+  //             <IoMagnetSharp size={20} />
+  //             <span>Leads</span>
+  //             <IoIosLock size={15} />
+  //           </div>
+  //           <div className="sidebar-locked">
+  //             <IoMagnetSharp size={20} />
+  //             <span>Offers</span>
+  //             <IoIosLock size={15} />
+  //           </div>
+  //           <div className="sidebar-locked">
+  //             <MdOutlineNotifications size={20} />
+  //             <span>Notifications</span>
+  //             <IoIosLock size={15} />
+  //           </div>
+  //         </>
+  //       )}
+  //     </div>
+
+  //     {/* Logout */}
+  //     <div className="logout-area" onClick={handleLogout}>
+  //       <TbLogout size={20} />
+  //       <button className="logout-btn">Sign Out</button>
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <>
       {isAccepted ? (
         <div className="con">
-          {renderSidebar()}
+          {/* {renderSidebar()} */}
+          <Sidebar />
 
           <div className="upper-con">
-            <h1
-              style={{
-                textAlign: "center",
-                marginBottom: "25px",
-                marginTop: "20px",
-              }}
-            >
-              Home (Application Accepted - Features Unlocked)
-            </h1>
+            <span className="page-title">Home — Features Unlocked</span>
+
             <div className="upper">
               <img
-                style={{
-                  height: "80px",
-                  width: "80px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  backgroundColor: "#151d27",
-                }}
+                className="welcome-img"
                 src="https://tse4.mm.bing.net/th/id/OIP.RhaZVy8P8ZwJKWK1Pmw18QHaHa?pid=Api&P=0&h=180"
-                alt="application sent"
+                alt="welcome"
               />
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginBottom: "25px",
-                  marginTop: "20px",
-                  backgroundColor: "#151d27",
-                }}
-              >
-                Welcome back!
-              </h1>
-              <p style={{ margin: "0px", backgroundColor: "#151d27" }}>
-                Your application has been accepted.
-              </p>
-              <p style={{ backgroundColor: "#151d27" }}>
+              <span className="welcome-title">Welcome back!</span>
+              <p className="welcome-sub">Your application has been accepted.</p>
+              <p className="welcome-sub">
                 You now have access to all features.
               </p>
             </div>
@@ -247,23 +231,23 @@ const Home = () => {
                   maxWidth: "680px",
                 }}
               >
-                <h3 style={{ color: "white", marginBottom: "12px" }}>
-                  Project Stats
-                </h3>
-                <div
+                <span
+                  className="features-heading"
                   style={{
-                    display: "flex",
-                    gap: "14px",
-                    justifyContent: "center",
+                    textAlign: "center",
+                    marginLeft: "280px",
                   }}
                 >
+                  Project Stats
+                </span>
+                <div style={{ display: "flex", gap: "14px" }}>
                   <div
                     style={{
                       backgroundColor: "#151d27",
                       borderRadius: "10px",
                       padding: "16px 24px",
                       textAlign: "center",
-                      width: "100px",
+                      flex: 1,
                     }}
                   >
                     <p
@@ -276,23 +260,15 @@ const Home = () => {
                     >
                       {stats.open ?? 0}
                     </p>
-                    <p
-                      style={{
-                        color: "#6a727b",
-                        backgroundColor: "transparent",
-                      }}
-                    >
-                      Open
-                    </p>
+                    <p className="welcome-sub">Open</p>
                   </div>
-
                   <div
                     style={{
                       backgroundColor: "#151d27",
                       borderRadius: "10px",
                       padding: "16px 24px",
                       textAlign: "center",
-                      width: "100px",
+                      flex: 1,
                     }}
                   >
                     <p
@@ -305,23 +281,15 @@ const Home = () => {
                     >
                       {stats.active ?? 0}
                     </p>
-                    <p
-                      style={{
-                        color: "#6a727b",
-                        backgroundColor: "transparent",
-                      }}
-                    >
-                      Active
-                    </p>
+                    <p className="welcome-sub">Active</p>
                   </div>
-
                   <div
                     style={{
                       backgroundColor: "#151d27",
                       borderRadius: "10px",
                       padding: "16px 24px",
                       textAlign: "center",
-                      width: "100px",
+                      flex: 1,
                     }}
                   >
                     <p
@@ -334,175 +302,105 @@ const Home = () => {
                     >
                       {stats.completed ?? 0}
                     </p>
-                    <p
-                      style={{
-                        color: "#6a727b",
-                        backgroundColor: "transparent",
-                      }}
-                    >
-                      Completed
-                    </p>
+                    <p className="welcome-sub">Completed</p>
                   </div>
                 </div>
               </div>
             )}
 
-            <h3>Features</h3>
+            <span
+              className="features-heading"
+              style={{ textAlign: "center", marginLeft: "240px" }}
+            >
+              Features
+            </span>
             <div className="middle-con">
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <FaPeopleGroup
-                    style={{ backgroundColor: "#151d27" }}
-                    size={45}
-                  />
+                <div className="feature-icon-wrap">
+                  <FaPeopleGroup size={45} />
                 </div>
-                <h3 style={{ backgroundColor: "#151d27" }}>Editors</h3>
-                <p style={{ backgroundColor: "#151d27" }}>
+                <p className="feature-title">Editors</p>
+                <p className="feature-desc">
                   Browse and hire professional editors.
                 </p>
               </div>
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <MdPeopleAlt
-                    style={{ backgroundColor: "#151d27" }}
-                    size={45}
-                  />
+                <div className="feature-icon-wrap">
+                  <MdPeopleAlt size={45} />
                 </div>
-                {role === "creator" ? (
-                  <h3 style={{ backgroundColor: "#151d27" }}>Projects</h3>
-                ) : (
-                  <h3 style={{ backgroundColor: "#151d27" }}>Leads</h3>
-                )}
-                <p style={{ backgroundColor: "#151d27" }}>
-                  Manage your leads and queries.
+                <p className="feature-title">
+                  {role === "creator" ? "Projects" : "Leads"}
                 </p>
+                <p className="feature-desc">Manage your leads and queries.</p>
               </div>
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <AiFillMessage
-                    style={{ backgroundColor: "#151d27" }}
-                    size={45}
-                  />
+                <div className="feature-icon-wrap">
+                  <AiFillMessage size={45} />
                 </div>
-                <h3 style={{ backgroundColor: "#151d27" }}>Messages</h3>
-                <p style={{ backgroundColor: "#151d27" }}>
-                  Chat with editors and clients
-                </p>
+                <p className="feature-title">Messages</p>
+                <p className="feature-desc">Chat with editors and clients.</p>
               </div>
             </div>
           </div>
         </div>
       ) : (
         <div className="con">
-          {renderSidebar()}
+          {/* {renderSidebar()} */}
+          <Sidebar />
 
           <div className="upper-con">
-            <h1
-              style={{
-                textAlign: "center",
-                marginBottom: "25px",
-                marginTop: "20px",
-              }}
-            >
-              Home (Application Sent - Features Locked)
-            </h1>
+            <span className="page-title">Home — Application Pending</span>
+
             <div className="upper">
               <img
-                style={{ backgroundColor: "#151d27" }}
+                className="welcome-img"
                 src="https://icons.veryicon.com/png/o/miscellaneous/admin-dashboard-flat-multicolor/send-message.png"
                 alt="application sent"
+                style={{ borderRadius: 0 }}
               />
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginBottom: "25px",
-                  marginTop: "20px",
-                  backgroundColor: "#151d27",
-                }}
-              >
-                Your Application has been sent!
-              </h1>
-              <p style={{ margin: "0px", backgroundColor: "#151d27" }}>
+              <span className="welcome-title">Application Sent!</span>
+              <p className="welcome-sub">
                 Please wait while our team reviews your application.
               </p>
-              <p style={{ backgroundColor: "#151d27" }}>
+              <p className="welcome-sub">
                 You will get notified once your application is approved.
               </p>
             </div>
 
-            <h3>Features</h3>
+            <span
+              className="features-heading"
+              style={{ textAlign: "center", marginLeft: "240px" }}
+            >
+              Features
+            </span>
             <div className="middle-con">
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <IoIosLock style={{ backgroundColor: "#151d27" }} size={45} />
+                <div className="feature-icon-wrap">
+                  <IoIosLock size={45} />
                 </div>
-                <h3 style={{ backgroundColor: "#151d27" }}>Editors</h3>
-                <p style={{ backgroundColor: "#151d27" }}>
-                  This feature is locked. Complete your application to unlock
+                <p className="feature-title">Editors</p>
+                <p className="feature-desc">
+                  Complete your application to unlock.
                 </p>
               </div>
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <IoIosLock style={{ backgroundColor: "#151d27" }} size={45} />
+                <div className="feature-icon-wrap">
+                  <IoIosLock size={45} />
                 </div>
-                {role === "creator" ? (
-                  <h3 style={{ backgroundColor: "#151d27" }}>Projects</h3>
-                ) : (
-                  <h3 style={{ backgroundColor: "#151d27" }}>Leads</h3>
-                )}
-                <p style={{ backgroundColor: "#151d27" }}>
-                  This feature is locked. Complete your application to unlock
+                <p className="feature-title">
+                  {role === "creator" ? "Projects" : "Leads"}
+                </p>
+                <p className="feature-desc">
+                  Complete your application to unlock.
                 </p>
               </div>
               <div className="middle-child">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "#151d27",
-                    marginTop: "8px",
-                  }}
-                >
-                  <IoIosLock style={{ backgroundColor: "#151d27" }} size={45} />
+                <div className="feature-icon-wrap">
+                  <IoIosLock size={45} />
                 </div>
-                <h3 style={{ backgroundColor: "#151d27" }}>Messages</h3>
-                <p style={{ backgroundColor: "#151d27" }}>
-                  This feature is locked. Complete your application to unlock
+                <p className="feature-title">Messages</p>
+                <p className="feature-desc">
+                  Complete your application to unlock.
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { FaRegBell } from "react-icons/fa";
 import { MdOutlineHome } from "react-icons/md";
@@ -7,10 +7,12 @@ import { IoMagnetSharp } from "react-icons/io5";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLock } from "react-icons/io";
+import { SiMicroeditor } from "react-icons/si";
 
 const Navbar = () => {
   const [role, setRole] = useState("");
   const [status, setStatus] = useState("");
+  const location = useLocation();
 
   const syncFromStorage = () => {
     setRole(localStorage.getItem("role") || "");
@@ -32,121 +34,112 @@ const Navbar = () => {
         ? "/editorNotification"
         : "/home";
 
+  const isActive = (path) => location.pathname === path;
+
+  const NavLink = ({ to, icon, label }) => (
+    <Link
+      to={to}
+      className={`nav-link ${isActive(to) ? "nav-link-active" : ""}`}
+    >
+      {icon}
+      <span className="nav-label">{label}</span>
+    </Link>
+  );
+
   const LockedItem = ({ label }) => (
-    <div className="nav-child" style={{ opacity: 0.4, cursor: "not-allowed" }}>
-      <IoIosLock color="white" size={18} />
-      <span style={{ color: "#f8f8f9" }}>{label}</span>
+    <div className="nav-link nav-locked">
+      <IoIosLock size={17} />
+      <span className="nav-label">{label}</span>
     </div>
   );
 
   return (
     <div className="nav-con">
       {/* Brand */}
-      <div className="nav-child">
-        <img
-          className="brand-img"
-          src="https://img.freepik.com/premium-vector/r-logo-design_731343-266.jpg"
-          alt="brand img"
-        />
-        <p style={{ color: "#f8f8f9", margin: "0px" }}>Rent A Editor</p>
+      <div className="nav-brand">
+        <SiMicroeditor size={22} color="#8b5cf6" />
+        <span className="nav-brand-name">RentAEditor</span>
       </div>
 
-      {/* Home — sabko */}
-      <div className="nav-child">
-        <MdOutlineHome color="white" size={25} />
-        <Link style={{ textDecoration: "none", color: "#f8f8f9" }} to="/home">
-          Home
-        </Link>
-      </div>
+      <div className="nav-links">
+        {/* Home */}
+        <NavLink to="/home" icon={<MdOutlineHome size={20} />} label="Home" />
 
-      {/* ✅ Editors — sabko, no lock, no condition */}
-      <div className="nav-child">
-        <FaUserEdit color="white" size={25} />
-        <Link
-          style={{ textDecoration: "none", color: "#f8f8f9" }}
+        {/* Editors */}
+        <NavLink
           to="/editors"
-        >
-          Editors
-        </Link>
+          icon={<FaUserEdit size={18} />}
+          label="Editors"
+        />
+
+        {/* CREATOR accepted */}
+        {role === "creator" && isAccepted && (
+          <>
+            <NavLink
+              to="/projects"
+              icon={<IoMagnetSharp size={18} />}
+              label="Projects"
+            />
+            <Link
+              to={notifPath}
+              className={`nav-icon-btn ${isActive(notifPath) ? "nav-icon-active" : ""}`}
+            >
+              <FaRegBell size={20} />
+            </Link>
+          </>
+        )}
+
+        {/* CREATOR locked */}
+        {role === "creator" && !isAccepted && (
+          <>
+            <LockedItem label="Projects" />
+            <LockedItem label="Notifications" />
+          </>
+        )}
+
+        {/* EDITOR accepted */}
+        {role === "editor" && isAccepted && (
+          <>
+            <NavLink
+              to="/leads"
+              icon={<IoMagnetSharp size={18} />}
+              label="Leads"
+            />
+            <NavLink
+              to="/offers"
+              icon={<IoMagnetSharp size={18} />}
+              label="Offers"
+            />
+            <Link
+              to={notifPath}
+              className={`nav-icon-btn ${isActive(notifPath) ? "nav-icon-active" : ""}`}
+            >
+              <FaRegBell size={20} />
+            </Link>
+          </>
+        )}
+
+        {/* EDITOR locked */}
+        {role === "editor" && !isAccepted && (
+          <>
+            <LockedItem label="Leads" />
+            <LockedItem label="Offers" />
+            <LockedItem label="Notifications" />
+          </>
+        )}
+
+        {/* Admin */}
+        {role === "admin" && (
+          <NavLink to="/admin" icon={null} label="Admin Panel" />
+        )}
       </div>
 
-      {/* CREATOR accepted */}
-      {role === "creator" && isAccepted && (
-        <>
-          <div className="nav-child">
-            <IoMagnetSharp color="white" size={25} />
-            <Link
-              style={{ textDecoration: "none", color: "#f8f8f9" }}
-              to="/projects"
-            >
-              Projects
-            </Link>
-          </div>
-          <Link to={notifPath}>
-            <FaRegBell color="white" size={25} />
-          </Link>
-        </>
-      )}
-
-      {/* CREATOR locked */}
-      {role === "creator" && !isAccepted && (
-        <>
-          <LockedItem label="Projects" />
-          <LockedItem label="Notifications" />
-        </>
-      )}
-
-      {/* EDITOR accepted */}
-      {role === "editor" && isAccepted && (
-        <>
-          <div className="nav-child">
-            <IoMagnetSharp color="white" size={25} />
-            <Link
-              style={{ textDecoration: "none", color: "#f8f8f9" }}
-              to="/leads"
-            >
-              Leads
-            </Link>
-          </div>
-          <div className="nav-child">
-            <IoMagnetSharp color="white" size={25} />
-            <Link
-              style={{ textDecoration: "none", color: "#f8f8f9" }}
-              to="/offers"
-            >
-              Offers
-            </Link>
-          </div>
-          <Link to={notifPath}>
-            <FaRegBell color="white" size={25} />
-          </Link>
-        </>
-      )}
-
-      {/* EDITOR locked */}
-      {role === "editor" && !isAccepted && (
-        <>
-          <LockedItem label="Leads" />
-          <LockedItem label="Offers" />
-          <LockedItem label="Notifications" />
-        </>
-      )}
-
-      {/* Admin */}
-      {role === "admin" && (
-        <div className="nav-child">
-          <Link
-            style={{ textDecoration: "none", color: "#f8f8f9" }}
-            to="/admin"
-          >
-            Admin Panel
-          </Link>
-        </div>
-      )}
-
-      {/* Profile — sabko */}
-      <Link to="/profile">
-        <FaUserCircle color="white" size={28} />
+      {/* Profile */}
+      <Link
+        to="/profile"
+        className={`nav-icon-btn ${isActive("/profile") ? "nav-icon-active" : ""}`}
+      >
+        <FaUserCircle size={26} />
       </Link>
     </div>
   );

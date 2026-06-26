@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import Sidebar from "../pages/sidebar";
 
 const CreatorNotifications = () => {
   const [data, setData] = useState([]);
@@ -71,70 +72,86 @@ const CreatorNotifications = () => {
   );
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2 style={{ color: "white" }}>Notifications</h2>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        background: "#0D131D",
+      }}
+    >
+      <Sidebar />
+      <div
+        style={{
+          flex: 1,
+          padding: "30px",
+        }}
+      >
+        <h2 style={{ color: "white" }}>Notifications</h2>
 
-      {creatorNotifs.length === 0 ? (
-        <p>No notifications yet</p>
-      ) : (
-        creatorNotifs.map((n) => (
-          <div
-            key={n._id}
-            style={{
-              border: "1px solid #6A727D",
-              padding: "12px",
-              marginBottom: "12px",
-              borderRadius: "8px",
-            }}
-          >
-            <p style={{ margin: "0 0 8px 0" }}>{n.message}</p>
-            <p style={{ margin: "0", fontSize: "12px", color: "#aaa" }}>
-              {new Date(n.createdAt).toLocaleString()}
-            </p>
+        {creatorNotifs.length === 0 ? (
+          <p>No notifications yet</p>
+        ) : (
+          creatorNotifs.map((n) => (
+            <div
+              key={n._id}
+              style={{
+                border: "1px solid #6A727D",
+                padding: "12px",
+                marginBottom: "12px",
+                borderRadius: "8px",
+              }}
+            >
+              <p style={{ margin: "0 0 8px 0" }}>{n.message}</p>
+              <p style={{ margin: "0", fontSize: "12px", color: "#aaa" }}>
+                {new Date(n.createdAt).toLocaleString()}
+              </p>
 
-            {n.type === "offer_received" && n.offerId && (
-              <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                <button
-                  onClick={() => acceptOffer(n.projectId, n.offerId, n._id)}
-                  style={{
-                    backgroundColor: "green",
-                    color: "white",
-                    padding: "5px 12px",
-                    cursor: "pointer",
-                    border: "none",
-                    borderRadius: "4px",
-                    width: "165px",
-                    height: "40px",
-                  }}
+              {n.type === "offer_received" && n.offerId && (
+                <div
+                  style={{ display: "flex", gap: "10px", marginTop: "10px" }}
                 >
-                  ✅ Accept Offer
-                </button>
-                <button
-                  onClick={() => rejectOffer(n.projectId, n.offerId, n._id)}
-                  style={{
-                    backgroundColor: "red",
-                    color: "white",
-                    padding: "5px 12px",
-                    cursor: "pointer",
-                    border: "none",
-                    borderRadius: "4px",
-                    width: "165px",
-                    height: "40px",
-                  }}
-                >
-                  ❌ Reject Offer
-                </button>
-              </div>
-            )}
+                  <button
+                    onClick={() => acceptOffer(n.projectId, n.offerId, n._id)}
+                    style={{
+                      backgroundColor: "green",
+                      color: "white",
+                      padding: "5px 12px",
+                      cursor: "pointer",
+                      border: "none",
+                      borderRadius: "4px",
+                      width: "165px",
+                      height: "40px",
+                    }}
+                  >
+                    ✅ Accept Offer
+                  </button>
+                  <button
+                    onClick={() => rejectOffer(n.projectId, n.offerId, n._id)}
+                    style={{
+                      backgroundColor: "red",
+                      color: "white",
+                      padding: "5px 12px",
+                      cursor: "pointer",
+                      border: "none",
+                      borderRadius: "4px",
+                      width: "165px",
+                      height: "40px",
+                    }}
+                  >
+                    ❌ Reject Offer
+                  </button>
+                </div>
+              )}
 
-            {n.type === "project_completed" && (
-              <span style={{ color: "#aaa", fontSize: "13px" }}>
-                ✅ Project completed
-              </span>
-            )}
-          </div>
-        ))
-      )}
+              {n.type === "project_completed" && (
+                <span style={{ color: "#aaa", fontSize: "13px" }}>
+                  ✅ Project completed
+                </span>
+              )}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

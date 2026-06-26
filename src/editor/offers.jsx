@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import Sidebar from "../pages/sidebar";
+// import { MdOutlineDone } from "react-icons/md";
 
 const Offers = () => {
   const [projects, setProjects] = useState([]);
@@ -92,159 +94,246 @@ const Offers = () => {
   });
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Available Projects</h1>
-
-      {availableProjects.length === 0 && (
-        <p>No open projects available right now. Check back later!</p>
-      )}
-
-      {availableProjects.map((project) => (
-        <div
-          key={project._id}
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        background: "#0D131D",
+      }}
+    >
+      <Sidebar />
+      <div
+        style={{
+          flex: 1,
+          padding: "25px",
+        }}
+      >
+        <h1
           style={{
-            border: "1px solid gray",
-            padding: "15px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            // height: "auto",
+            color: "#FFFFFF",
+            fontSize: "34px",
+            fontWeight: "700",
+            marginBottom: "12px",
           }}
         >
-          <h2 style={{ color: "#6a727b" }}>
-            <strong>Title:</strong> {project.title}
-          </h2>
-          <p>
-            <strong>Description:</strong> {project.description}
-          </p>
-          <p>
-            <strong>Category:</strong> {project.category}
-          </p>
-          <p>
-            <strong>Platform:</strong> {project.platform}
-          </p>
-          <p>
-            <strong>Budget:</strong> ₹{project.budget}
-          </p>
-          <p>
-            <strong>Deadline:</strong>{" "}
-            {new Date(project.deadline).toDateString()}
-          </p>
+          Available Projects
+        </h1>
 
-          <hr />
+        {availableProjects.length === 0 && (
+          <p>No open projects available right now. Check back later!</p>
+        )}
 
+        {availableProjects.map((project) => (
           <div
+            key={project._id}
             style={{
-              display: "flex",
-              gap: "10px",
-              alignItems: "center",
+              border: "1px solid gray",
+              padding: "15px",
+              marginBottom: "20px",
+              borderRadius: "10px",
+              // height: "auto",
             }}
           >
-            {/* Button 1 — listed price pe accept */}
-            <button
-              onClick={() => acceptProject(project._id, project.budget)}
+            <h2
               style={{
-                backgroundColor: "green",
-                color: "white",
-                padding: "8px 16px",
-                cursor: "pointer",
+                color: "#FFFFFF",
+                fontSize: "24px",
+                marginBottom: "14px",
+              }}
+            >
+              <strong
+                style={{
+                  color: "#B8C0CC",
+                  fontWeight: "600",
+                  marginRight: "6px",
+                }}
+              >
+                Title:
+              </strong>
+              {project.title}
+            </h2>
+
+            <p
+              style={{
+                color: "#9CA3AF",
+                fontSize: "16px",
+                lineHeight: "28px",
+                marginBottom: "10px",
+              }}
+            >
+              <strong style={{ color: "#D1D5DB" }}>Description:</strong>{" "}
+              {project.description}
+            </p>
+
+            <p
+              style={{
+                color: "#9CA3AF",
+                fontSize: "16px",
+                marginBottom: "8px",
+              }}
+            >
+              <strong style={{ color: "#D1D5DB" }}>Category:</strong>{" "}
+              {project.category}
+            </p>
+
+            <p
+              style={{
+                color: "#9CA3AF",
+                fontSize: "16px",
+                marginBottom: "8px",
+              }}
+            >
+              <strong style={{ color: "#D1D5DB" }}>Platform:</strong>{" "}
+              {project.platform}
+            </p>
+
+            <p
+              style={{
+                color: "#9CA3AF",
+                fontSize: "16px",
+                marginBottom: "8px",
+              }}
+            >
+              <strong style={{ color: "#22C55E" }}>Budget:</strong> ₹
+              {project.budget}
+            </p>
+
+            <p
+              style={{
+                color: "#9CA3AF",
+                fontSize: "16px",
+                marginBottom: "15px",
+              }}
+            >
+              <strong style={{ color: "#FACC15" }}>Deadline:</strong>{" "}
+              {new Date(project.deadline).toDateString()}
+            </p>
+
+            <hr
+              style={{
                 border: "none",
-                borderRadius: "4px",
-                marginRight: "10px",
-                width: "195px",
-                height: "40px",
+                borderTop: "1px solid #2A3441",
+                marginTop: "18px",
+                marginBottom: "18px",
               }}
-            >
-              ✅ Accept at ₹{project.budget}
-            </button>
+            />
 
-            {/* Button 2 — reoffer form toggle */}
-            <button
-              onClick={() =>
-                setOpenForm((prev) => ({
-                  ...prev,
-                  [project._id]: !prev[project._id],
-                }))
-              }
-              style={{
-                backgroundColor: "#1a1a3e",
-                color: "white",
-                padding: "8px 16px",
-                cursor: "pointer",
-                border: "1px solid #6A727D",
-                borderRadius: "4px",
-                // position: "fixed",
-                width: "175px",
-                height: "40px",
-              }}
-            >
-              💬 {openForm[project._id] ? "Cancel" : "Send ReOffer"}
-            </button>
-          </div>
-
-          {/* ReOffer form */}
-          {openForm[project._id] && (
             <div
               style={{
-                border: "1px solid #6A727D",
-                padding: "12px",
-                borderRadius: "6px",
-                marginTop: "12px",
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
               }}
             >
-              <input
-                type="number"
-                placeholder="Your Offer Price (₹)"
-                value={price[project._id] || ""}
-                onChange={(e) =>
-                  setPrice((prev) => ({
-                    ...prev,
-                    [project._id]: e.target.value,
-                  }))
-                }
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  padding: "6px",
-                  width: "250px",
-                }}
-              />
-              <textarea
-                placeholder="Message to creator"
-                value={message[project._id] || ""}
-                onChange={(e) =>
-                  setMessage((prev) => ({
-                    ...prev,
-                    [project._id]: e.target.value,
-                  }))
-                }
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  padding: "6px",
-                  width: "250px",
-                  color: "white",
-                  backgroundColor: "#1a1a2e",
-                  border: "1px solid gray",
-                }}
-              />
+              {/* Button 1 — listed price pe accept */}
               <button
-                onClick={() => sendReOffer(project._id)}
+                onClick={() => acceptProject(project._id, project.budget)}
                 style={{
-                  backgroundColor: "#7b7bff",
+                  backgroundColor: "green",
                   color: "white",
-                  padding: "6px 14px",
+                  padding: "8px 16px",
                   cursor: "pointer",
                   border: "none",
                   borderRadius: "4px",
-                  width: "150px",
+                  marginRight: "10px",
+                  width: "195px",
+                  height: "40px",
+                  marginTop: "10px",
                 }}
               >
-                Send ReOffer
+                Accept at ₹{project.budget}
+              </button>
+
+              {/* Button 2 — reoffer form toggle */}
+              <button
+                onClick={() =>
+                  setOpenForm((prev) => ({
+                    ...prev,
+                    [project._id]: !prev[project._id],
+                  }))
+                }
+                style={{
+                  backgroundColor: "#1a1a3e",
+                  color: "white",
+                  padding: "8px 16px",
+                  cursor: "pointer",
+                  border: "1px solid #6A727D",
+                  borderRadius: "4px",
+                  // position: "fixed",
+                  width: "175px",
+                  height: "40px",
+                  marginTop: "10px",
+                }}
+              >
+                {openForm[project._id] ? "Cancel" : "Send ReOffer"}
               </button>
             </div>
-          )}
-        </div>
-      ))}
+
+            {/* ReOffer form */}
+            {openForm[project._id] && (
+              <div
+                style={{
+                  border: "1px solid #6A727D",
+                  padding: "12px",
+                  borderRadius: "6px",
+                  marginTop: "12px",
+                }}
+              >
+                <input
+                  type="number"
+                  placeholder="Your Offer Price (₹)"
+                  value={price[project._id] || ""}
+                  onChange={(e) =>
+                    setPrice((prev) => ({
+                      ...prev,
+                      [project._id]: e.target.value,
+                    }))
+                  }
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    padding: "6px",
+                    width: "250px",
+                  }}
+                />
+                <textarea
+                  placeholder="Message to creator"
+                  value={message[project._id] || ""}
+                  onChange={(e) =>
+                    setMessage((prev) => ({
+                      ...prev,
+                      [project._id]: e.target.value,
+                    }))
+                  }
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    padding: "6px",
+                    width: "250px",
+                    color: "white",
+                    backgroundColor: "#1a1a2e",
+                    border: "1px solid gray",
+                  }}
+                />
+                <button
+                  onClick={() => sendReOffer(project._id)}
+                  style={{
+                    backgroundColor: "#7b7bff",
+                    color: "white",
+                    padding: "6px 14px",
+                    cursor: "pointer",
+                    border: "none",
+                    borderRadius: "4px",
+                    width: "150px",
+                  }}
+                >
+                  Send ReOffer
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

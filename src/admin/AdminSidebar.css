@@ -1,0 +1,120 @@
+.admin-sidebar {
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  background: #0d131d;
+  border-right: 1px solid #242d39;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 24px 18px;
+  box-sizing: border-box;
+}
+
+/* Brand */
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 35px;
+}
+
+.admin-logo {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.admin-brand h3 {
+  margin: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.admin-brand p {
+  margin: 4px 0 0;
+  color: #8b9199;
+  font-size: 13px;
+}
+
+/* Links */
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  text-decoration: none;
+
+  color: #9ba4b0;
+
+  padding: 13px 15px;
+
+  margin-bottom: 8px;
+
+  border-radius: 12px;
+
+  transition: 0.25s;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.admin-link svg {
+  color: inherit;
+  background-color: transparent;
+}
+
+.admin-link:hover {
+  background: #151d27;
+  color: white;
+}
+
+.admin-link-active {
+  background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+  color: white;
+
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25);
+}
+
+/* Logout */
+
+.admin-logout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  color: #ff7272;
+
+  padding: 14px 15px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.admin-logout svg {
+  color: inherit;
+}
+
+.admin-logout:hover {
+  background: rgba(255, 0, 0, 0.08);
+}

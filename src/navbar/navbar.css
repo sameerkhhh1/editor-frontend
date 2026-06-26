@@ -1,36 +1,121 @@
 .nav-con {
-  height: 60px;
-  width: auto;
+  height: 62px;
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  font-size: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  padding: 0 32px;
   background-color: #0d131d;
-  border: 1px solid #6a727d;
-}
-.brand-img {
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
-  /* border: 1px solid black; */
-  margin: 0px;
-}
-.nav-child {
-  height: 60px;
-  width: auto;
-  display: flex;
-  /* justify-content: space-evenly; */
-  align-items: center;
-  font-size: 20px;
-  gap: 7px;
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+  border-bottom: 1px solid #1e2a3a;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
 }
 
-.profile-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0;
+/* Brand */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-brand-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+/* Links group */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 180px;
+}
+
+/* Individual nav link */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #8b9199;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.nav-link:hover {
+  background-color: #151d27;
+  color: #ffffff;
+}
+
+.nav-link svg {
+  color: inherit;
+}
+
+/* Active state */
+.nav-link-active {
+  background-color: #1a1035;
+  color: #a78bfa !important;
+  border: 1px solid #2d1f5e;
+}
+
+.nav-link-active svg {
+  color: #a78bfa !important;
+}
+
+/* Locked items */
+.nav-locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+  color: #8b9199;
+}
+
+.nav-locked:hover {
+  background: transparent;
+  color: #8b9199;
+}
+
+/* Icon only buttons (bell, profile) */
+.nav-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  color: #8b9199;
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.nav-icon-btn:hover {
+  background-color: #151d27;
+  color: #ffffff;
+}
+
+.nav-icon-btn svg {
+  color: inherit;
+}
+
+.nav-icon-active {
+  color: #a78bfa;
+  background-color: #1a1035;
+  border: 1px solid #2d1f5e;
+}
+
+.nav-label {
+  font-size: 19px;
 }

@@ -1,10 +1,11 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+// import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Signup } from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Admin from "../src/admin/admin";
-import Navbar from "./navbar/navbar";
+// import Navbar from "./navbar/navbar";
 import Editors from "./pages/editors";
 import { Leads } from "./pages/leads";
 import Projects from "./pages/projects";
@@ -35,16 +36,16 @@ const AuthRoute = ({ element }) => {
 };
 
 function App() {
-  const location = useLocation();
-  const token = localStorage.getItem("token");
+  // const location = useLocation();
+  // const token = localStorage.getItem("token");
 
   // ✅ Navbar sirf login ke baad dikhao
-  const hideNavbar =
-    !token || location.pathname === "/login" || location.pathname === "/signup";
+  // const hideNavbar =
+  //   !token || location.pathname === "/login" || location.pathname === "/signup";
 
   return (
     <div style={{ backgroundColor: "#0D131D" }}>
-      {!hideNavbar && <Navbar />}
+      {/* {!hideNavbar && <Navbar />} */}
       <Routes>
         {/* Public */}
         <Route path="/signup" element={<Signup />} />
