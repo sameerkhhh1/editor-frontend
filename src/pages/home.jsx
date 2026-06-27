@@ -213,7 +213,8 @@ const Home = () => {
             <div className="upper">
               <img
                 className="welcome-img"
-                src="https://tse4.mm.bing.net/th/id/OIP.RhaZVy8P8ZwJKWK1Pmw18QHaHa?pid=Api&P=0&h=180"
+                src="https://cdn-icons-png.flaticon.com/512/845/845646.png"
+                // src="https://tse4.mm.bing.net/th/id/OIP.RhaZVy8P8ZwJKWK1Pmw18QHaHa?pid=Api&P=0&h=180"
                 alt="welcome"
               />
               <span className="welcome-title">Welcome back!</span>

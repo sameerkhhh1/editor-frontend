@@ -7,7 +7,7 @@ import {
   MdDashboard,
   MdOutlineHome,
   MdOutlineNotifications,
-  MdPeople,
+  //   MdPeople,
 } from "react-icons/md";
 
 import { FaUserCircle, FaUserEdit } from "react-icons/fa";
@@ -161,7 +161,7 @@ const AdminSidebar = () => {
 
         {/* Users */}
 
-        <Link
+        {/* <Link
           to="/admin"
           className={`admin-link ${
             isActive("/admin") ? "admin-link-active" : ""
@@ -169,7 +169,7 @@ const AdminSidebar = () => {
         >
           <MdPeople size={20} />
           Manage Users
-        </Link>
+        </Link> */}
       </div>
 
       {/* Logout */}
